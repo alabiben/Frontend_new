@@ -24,13 +24,13 @@ function Login() {
           <form className="max-w-md mx-auto mt-10 p-8 bg-white rounded-xl shadow-lg" onSubmit={submit}>
                 <h1 className="text-xl font-bold text-center">Login to Your Account</h1>
                 <div className="mb-4">
-                    <label htmlfor="email" className="block text-grey-600 mb-2">
+                    <label htmlFor="email" className="block text-grey-600 mb-2">
                         Email Address
                     </label>
                     <input value={email} onChange={(e) => setEmail(e.target.value)} type="email" placeholder="type in a valid email address" required className="w-full px-4 py-2 border border-gray-300 rounded mb-4 focus:outline-none focus:ring-2 focus:ring-blue-500">
                     </input>
                     <div className="mt-5">
-                        <label htmlfor="email" className="block text-grey-600 mb-5">
+                        <label htmlFor="email" className="block text-grey-600 mb-5">
                         Password
                     </label>
                     <input value={password} onChange={(e) => setPassword(e.target.value)}  type="password" placeholder="type in a valid password" required className="w-full px-4 py-2 border border-gray-300 rounded mb-4 focus:outline-none focus:ring-2 focus:ring-blue-500">
