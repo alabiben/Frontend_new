@@ -1,17 +1,15 @@
-//import { useState } from 'react'
-//import reactLogo from './assets/react.svg'
-//import viteLogo from '/vite.svg'
+import { Route,Routes } from 'react-router-dom'
 import './App.css'
-
-function App() {
-  //const [count, setCount] = useState(0)
-
+import Home from './pages/Home'
+import Login from './auth/login'
+function App () {
+  
   return (
     <>
-      <div className='bg-black text-white'>
-       Welcome to my frontend project 
-      </div>
-      
+      <Routes>
+        <Route path='/' element={<Home/>}></Route>
+        <Route path='/Login' element={<Login/>}></Route>
+      </Routes>
     </>
   )
 }
