@@ -1,23 +1,48 @@
 import React from 'react'
-//import axios from "axios"
+import axios from "axios"
 import {useState} from "react"
-
+import { useShopContext } from '../context.tsx'
+import { useNavigate } from 'react-router-dom'
+    interface Loginresponse {
+        token: string,
+        user: {
+            id: string,
+            email: string,
+            name: string,
+            role: string
+        }   
+    }
 function Login() {
-
+    const navigate = useNavigate()
+    const context = useShopContext()
+    const backendUrl = context?.backendUrl || ""
     const [email, setEmail] = useState<string>("")
     const [password, setPassword] = useState<string>("")
+    const [isLoading, setIsLoading] = useState<boolean>(false)
+    const [error, setError] = useState<string>("")
 
-    const submit = async (e:React.FormEvent<HTMLFormElement>) =>{
-        try {
-            e.preventDefault()
-            console.log("password", password)
-            console.log("email", email)
-
-        } catch (error) {
-            
-        }
-        
+    const submit = async (e: React.FormEvent<HTMLFormElement>) => {
+  e.preventDefault()
+  setIsLoading(true)
+  setError("")
+  try {
+    const response = await axios.post<Loginresponse>(`${backendUrl}/api/auth/login`, { email, password })
+    if (response.status === 200) {
+      localStorage.setItem('token', response.data.token)
+      if (response.data.user.bio && response.data.user.skills && response.data.user.goals) {
+        navigate('/dashboard')
+      } else {
+        navigate('/profile')
+      }
     }
+  } catch (error: any) {
+    setError(error?.response?.data?.message || "Login failed")
+    console.log(error)
+  } finally {
+    setIsLoading(false)
+  }
+}
+
   return (
      <div className="set mt-10 justify-self-center mx-auto">
           <h1 className="justify-self-center justify-center font-bold text-6xl">Mentorship Login Page</h1>
